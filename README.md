@@ -13,8 +13,6 @@ https://medium.com/@Bank_Security/undetectable-c-c-reverse-shells-fab4c0ec4f15
 
 https://gist.github.com/BankSecurity
 
-http://sh3llc0d3r.com/windows-reverse-shell-shellcode-i/
-
 
 ## Other fun tips
 
