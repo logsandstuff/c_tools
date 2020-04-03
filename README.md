@@ -17,7 +17,7 @@ https://gist.github.com/BankSecurity
 ## Other fun tips
 
 ### Host a simple HTTP on your Linux machine 
-This is great to easily download executable from here when you're troubleshooting locally. See examples below, just choose an unused port. Access file from http://xx.xx.xx.xx/1584/Documents/rev_c.exe
+This is great to easily download executable from here when you're troubleshooting locally. See examples below, just choose an unused port (here I show it using the IP 10.0.0.20 and the port 1584 as an example). Access file from http://10.0.0.20/1584/Documents/rev_c.exe
      
      python3 -m http.server 1584
      python2 -m SimpleHTTPServer 1584
