@@ -8,9 +8,9 @@ Significantly lower detection rate by anti virus software. Windows Defender was 
 In this folder you'll find standard payload to use with your favorite human interface device (HID), like rubber ducky, digispark boards programmed with arduino, Cactus WHID, etc. 
 
 ## Read more
-https://medium.com/@Bank_Security/undetectable-c-c-reverse-shells-fab4c0ec4f15
-https://gist.github.com/BankSecurity
-http://sh3llc0d3r.com/windows-reverse-shell-shellcode-i/
+*https://medium.com/@Bank_Security/undetectable-c-c-reverse-shells-fab4c0ec4f15
+*https://gist.github.com/BankSecurity
+*http://sh3llc0d3r.com/windows-reverse-shell-shellcode-i/
 
 
 ## Other fun tips
