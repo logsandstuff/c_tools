@@ -4,7 +4,7 @@ One-liner that downloads an executable from a URL of your choice, saves in temp 
 
 The only visible part is opening run and typing this single line of code, a command prompt opens for a fraction of a second & everything else happens first minimized and then in the background.
 
-## HID script
+## Final, working script
 ```
 GUI R
 DELAY 2000
